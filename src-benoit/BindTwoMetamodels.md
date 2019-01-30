@@ -1,4 +1,12 @@
-# Bind two metamodels
+---
+title: "Bind two metamodels"
+author: Benoît Verhaeghe
+institute: Berger-Levrault
+date: \today
+theme: metropolis
+header-includes:
+    - \metroset{block=fill}
+---
 
 ## Why
 
@@ -14,13 +22,19 @@ Two possibilities
 - Create a metamodel linked to another one
 - Create two metamodels then linked them with a third one
 
+# Moose
+
 ## Moose - Message
 
-Use this message:
+::: block
+
+### defineClass
 
 ```st
 FamixMetamodelGenerator >> #remoteEntity: anEntityName withPrefix: aPrefixName
 ```
+
+:::
 
 It computes the entity `anEntityName` of the model prefixed by `aPrefixName`.
 
@@ -35,6 +49,8 @@ __BUT__
 ## Moose - Reset
 
 *Do not forget to reset all the metamodels, begin with the submetamodels then the binding one*
+
+# Example
 
 ## Example - Binding between FAMIX and FAST
 
@@ -77,6 +93,8 @@ FASTJavaMetamodelGenerator resetMetamodel.
 FamixCompatibilityGenerator resetMetamodel.
 CRFMetamodelGenerator resetMetamodel.
 ```
+
+# Thanks
 
 ## Your turn
 

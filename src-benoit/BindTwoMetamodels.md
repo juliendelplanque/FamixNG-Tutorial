@@ -14,7 +14,7 @@ Two possibilities
 - Create a metamodel linked to another one
 - Create two metamodels then linked them with a third one
 
-### Moose - Message
+## Moose - Message
 
 Use this message:
 

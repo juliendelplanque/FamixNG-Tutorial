@@ -54,7 +54,7 @@
 
 - Classes **must** be used for entities that will be instantiated.
 - Traits **can not** be instantiated.
-- Can only inherit from one classes.
+- Can only inherit from one class.
 - Can "inherit" from multiple traits.
 
 ## Example
@@ -150,6 +150,7 @@ uri --|> #TReferenceable.
 	+ `#defineClasses` for classes definitions
 	+ `#defineHierarchy` for classes inheritance definitions
 	+ `#defineRelations` for classes relations definitions
+	+ `#defineProperties` to define classes properties
 	+ `#defineTraits` for traits definitions
 
 > Remark: `FamixMetamodelGenerator` has a `builder` inst. var. that you can use to describe your meta-model.

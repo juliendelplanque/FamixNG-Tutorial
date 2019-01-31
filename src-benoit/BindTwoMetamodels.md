@@ -1,7 +1,6 @@
 ---
 title: "Bind two metamodels"
 author: Benoît Verhaeghe
-institute: Berger-Levrault
 date: \today
 theme: metropolis
 header-includes:
@@ -11,9 +10,10 @@ header-includes:
 ## Why
 
 - Extend a metamodel
-  - AST -->  AST Java
-- Link similar entity between two metamodels
-  - FAMIX Outgoing invocation --> FAST Method Invocation
+  - AST →  AST Java
+- Link similar entities between two metamodels
+  - FAMIX Outgoing invocation → FAST Method Invocation
+  - A Pharo Method in our presentation → a real Pharo method
 
 ## How
 
@@ -24,81 +24,87 @@ Two possibilities
 
 # Moose
 
-## Moose - Message
-
-::: block
-
-### defineClass
-
-```st
-FamixMetamodelGenerator >> #remoteEntity: anEntityName withPrefix: aPrefixName
-```
-
-:::
-
-It computes the entity `anEntityName` of the model prefixed by `aPrefixName`.
-
 ## Moose - Define metamodel
 
-It is the same as for the definition of a standalone model.
-__BUT__
+Almost the same as for one metamodel
+
+***BUT***
 
 - The remote entity are defined with `remoteEntity: withPrefix:`
 - The class side of the generator should implement `submetamodels` witch return the collection of the remote metamodels.
 
-## Moose - Reset
+::: {.thinkReset}
 
-*Do not forget to reset all the metamodels, begin with the submetamodels then the binding one*
+# Warning
 
-# Example
+Do not forget to reset all the metamodels
 
-## Example - Binding between FAMIX and FAST
+:::
 
-The binding is done with a third metamodels (witch is called Carrefour).
+# Example -- Our presentation
 
-Carrefours defines a binding between FAMIX and FAST.
+## New Metamodel
 
-```st
-Insert here the code to create the class
-```
+![meta-binding](./img/presentation-meta-binding.pdf){height=400px}
+
+## What do we need
+
+1. A new class named: 'SelectorReference'
+2. A relations between 'Slide' and 'SelectorReference'
+3. A relations between 'FamixStMethod' and 'SelectorReference'
 
 ## Example - Define entities
 
 ```st
 defineClasses
-    super defineClasses.
-    famixMethod := self remoteEntity: #Method withPrefix: #FAMIX.
-    fastJavaMethodEntity := self remoteEntity: #JavaMethodEntity withPrefix: #FAST.
+  super defineClasses.
+  slide := self remoteEntity: #Slide withPrefix: #'Fmx'.
+  selectorReference :=
+    builder newClassNamed: #SelectorReference.
+  famixStMethod :=
+    self remoteEntity: #Method withPrefix: #'FamixSt'
 ```
+
+::: block
+
+### Define remote entity
+
+'`#remoteEntity: anEntityName withPrefix: aPrefixName`' computes the entity 'anEntityName' of the model prefixed by 'aPrefixedName'. 
+
+:::
 
 ## Example - Define the binding
 
 ```st
 defineRelations
-    super defineRelations.
-    (famixInvocation property: #fast) - (fastJavaMethodInvocation property: #famix).
+  super defineRelations.
+  (slide property: #outgoingReferences) -*
+    (selectorReference property: #source).
+  (selectorReference property: #candidates) *-*
+    (famixStMethod property: #incomingReferences).
 ```
 
 ## Example - Define the submodels
 
 ```st
 submetamodels
-    ^ {FASTJavaMetamodelGenerator. FamixCompatibilityGenerator}
+ ^ { FmxNGSlidesGenerator.
+     FamixPharoSmalltalkGenerator }
 ```
 
 ## Example - Reset the metamodels
 
 ```st
-FASTJavaMetamodelGenerator resetMetamodel.
-FamixCompatibilityGenerator resetMetamodel.
-CRFMetamodelGenerator resetMetamodel.
+FmxNGSlidesGenerator resetMetamodel.
+FamixPharoSmalltalkGenerator resetMetamodel.
+FamixNGSlidesSmalltalkGenerator resetMetamodel.
 ```
 
-# Thanks
+## So
 
-## Your turn
-
-Try to bind the FamixInvocation entity with the FASTJavaMethodInvocation.
-The relation is one-to-one
-
-Enjoy !
+1. Create new metamodel generator
+2. Define the submetamodels
+3. Define the remote entities
+4. Define the new entities (optional)
+5. Define the new relations
+6. Generate and resetMetamodel

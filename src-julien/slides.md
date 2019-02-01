@@ -175,17 +175,17 @@ defineProperties
 uri --|> #TReferenceable.
 ```
 
-## In practice (1)
+## In practice: Step 1
 Create a subclass of one of
 
 - `FamixMetamodelGenerator`
 - `FamixBasicInfrastructureGenerator`
 - `FamixFileBasedLanguageGenerator`
 
-## In practice (2)
+## In practice: Step 2
 Implement class-side methods `#packageName` (name of the package in which the MM will be generated) and `prefix` (prefix for your generated classes)
 
-## In practice (3)
+## In practice: Step 3
 Override the following instance-side methods depending on what part of the MM you describe:
 
 + `#defineClasses` for classes definitions

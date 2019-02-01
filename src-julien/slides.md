@@ -207,3 +207,28 @@ Override the following instance-side methods depending on what part of the MM yo
 	+ `#defineRelations` for classes relations definitions
 	+ `#defineProperties` to define classes properties
 	+ `#defineTraits` for traits definitions
+
+## Tutorial time: Presentation
+
+Load a fresh Moose 7 image from the CI and implement the previous meta-model.
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{presentation-meta.pdf}
+\end{center}
+
+## Tutorial time: Fortran
+[https://github.com/juliendelplanque/FamixNGFortran](https://github.com/juliendelplanque/FamixNGFortran)
+
+```
+Metacello new
+	repository:
+	'github://juliendelplanque/FamixNGFortran/src';
+	baseline: 'FamixNGFortran';
+	load: 'Tutorial'.
+```
+
+## Tutorial time: Fortran
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{uml.png}
+\end{center}

@@ -212,6 +212,16 @@ Override the following instance-side methods depending on what part of the MM yo
 
 Load a fresh Moose 7 image from the CI and implement the previous meta-model.
 
+```
+Metacello new
+	repository:
+	'github://juliendelplanque/FamixNG-Slides/src';
+	baseline: 'FamixNGSlides';
+	load: 'Tutorial'.
+```
+
+## Hint: the meta-model
+
 \begin{center}
 \includegraphics[width=0.9\textwidth]{presentation-meta.pdf}
 \end{center}
@@ -225,7 +235,7 @@ Metacello new
 	'github://juliendelplanque/FamixNGFortran/src';
 	baseline: 'FamixNGFortran';
 	load: 'Tutorial'.
-```
+	```
 
 ## Tutorial time: Fortran
 

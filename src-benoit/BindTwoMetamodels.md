@@ -7,15 +7,15 @@ header-includes:
     - \metroset{block=fill}
 ---
 
-## Why
+## Why ?
 
 - Extend a metamodel
   - AST →  AST Java
-- Link similar entities between two metamodels
+- Link similar entities which belong to two different metamodels
   - FAMIX Outgoing invocation → FAST Method Invocation
   - A Pharo Method in our presentation → a real Pharo method
 
-## How
+## How ?
 
 Two possibilities
 

@@ -78,20 +78,17 @@ uriReference := builder newClassNamed: #UriReference.
 
 > Remark: Can be written the other way around (`<|--`).
 
-## Example
+## Example (1)
 
-```
-presentation --|> namedEntity.
+\begin{center}
+\includegraphics[width=0.9\textwidth]{presentation-meta-inheritance-classes.pdf}
+\end{center}
 
-slide --|> namedEntity.
-slide --|> #TWithReference.
+## Example (2)
 
-uriReference --|> association.
-uriReference --|> #TReference.
-
-uri --|> entity.
-uri --|> #TReferenceable.
-```
+\begin{center}
+\includegraphics[width=0.9\textwidth]{presentation-meta-inheritance-traits.pdf}
+\end{center}
 
 ## The DSL - Relations
 
@@ -101,19 +98,18 @@ uri --|> #TReferenceable.
 |`manyBelongTo:` | `*-<>`        | Composition with `0..*` children |
 |`containsOne:`  | `<>-`         | Composition with `1` child       |
 |`containsMany:` | `<>-*`        | Composition with `0..*` children |
-|`oneToOne:`     | `-`           | Association `1` to `1`           |
-|`oneToMany:`    | `-*`          | Association `1` to `0..*`        |
-|`manyToOne:`    | `*-`          | Association `0..*` to `1`        |
+|`oneToOne:`     | `-`           | Association `0..1` to `0..1`     |
+|`oneToMany:`    | `-*`          | Association `0..1` to `0..*`     |
+|`manyToOne:`    | `*-`          | Association `0..*` to `0..1`     |
 |`manyToMany:`   | `*-*`         | Association `0..*` to `0..*`     |
 
 > Remark: As in the old Famix, Famix NG relations ensure that if one side of the relation is modified, the other side is updated accordingly.
 
 ## Example
 
-```
-(presentation property: #slides)
-	<>-* (slide property: #presentation)
-```
+\begin{center}
+\includegraphics[width=0.9\textwidth]{presentation-meta-relations.pdf}
+\end{center}
 
 ## The DSL - Properties
 
@@ -123,9 +119,9 @@ uri --|> #TReferenceable.
 
 ## Example
 
-```
-uri property: #uri type: #String
-```
+\begin{center}
+\includegraphics[width=0.9\textwidth]{presentation-meta-properties.pdf}
+\end{center}
 
 ## Summary (part 1)
 ```
@@ -140,7 +136,7 @@ defineClasses
 defineHierarchy
 	presentation --|> namedEntity.
 	slide --|> namedEntity.
-	slide --|> #TWithReference.
+	slide --|> #TWithReferences.
 	uriReference --|> association.
 	uriReference --|> #TReference.
 	uri --|> entity.

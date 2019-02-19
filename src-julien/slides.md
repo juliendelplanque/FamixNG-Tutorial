@@ -126,6 +126,7 @@ uriReference := builder newClassNamed: #UriReference.
 ## Summary (part 1)
 ```
 defineClasses
+	super defineClasses.
 	presentation := builder newClassNamed: #Presentation.
 	slide := builder newClassNamed: #Slide.
 	uri := builder newClassNamed: #Uri.
@@ -134,6 +135,7 @@ defineClasses
 
 ```
 defineHierarchy
+	super defineHierarchy.
 	presentation --|> namedEntity.
 	slide --|> namedEntity.
 	slide --|> #TWithReferences.
@@ -147,12 +149,14 @@ defineHierarchy
 
 ```
 defineRelations
+	super defineRelations.
 	(presentation property: #slides)
 		<>-* (slide property: #presentation)
 ```
 
 ```
 defineProperties
+	super defineProperties.
 	uri property: #uri type: #String
 ```
 

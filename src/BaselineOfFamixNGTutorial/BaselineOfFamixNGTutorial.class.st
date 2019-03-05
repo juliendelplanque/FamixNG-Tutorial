@@ -23,10 +23,10 @@ BaselineOfFamixNGTutorial >> defineDependencies: spec [
 				loads: #('all');
 				repository: 'github://juliendelplanque/LectureGuide' ].
 	spec
-		baseline: 'FAST'
+		baseline: 'FASTJava'
 		with: [ spec
 				loads: #('smacc' 'visitor');
-				repository: 'github://moosetechnology/FAST:master/src' ].
+				repository: 'github://moosetechnology/FAST-Java:master/src' ].
 ]
 
 { #category : #baselines }
@@ -34,7 +34,7 @@ BaselineOfFamixNGTutorial >> defineGroups: spec [
 	spec
 		group: 'default' with: #('metamodel' 'multiplemetamodels');
 		group: 'metamodel' with: #();
-		group: 'multiplemetamodels' with: #('Tutorial-MutipleMetamodels-Guide' 'FAST')
+		group: 'multiplemetamodels' with: #('Tutorial-MutipleMetamodels-Guide' 'FASTJava')
 		
 ]
 

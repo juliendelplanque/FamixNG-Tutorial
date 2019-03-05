@@ -7,24 +7,44 @@ header-includes:
     - \metroset{block=fill}
 ---
 
-## Why ?
+## Introduction
 
+**Objectives**
+
+- Create two linked metamodels
 - Extend a metamodel
-  - AST →  AST Java
-- Link similar entities which belong to two different metamodels
-  - FAMIX Outgoing invocation → FAST Method Invocation
-  - A Pharo Method in our presentation → a real Pharo method
 
-## How ?
+**Resources**
 
-Two possibilities
+- [https://github.com/SquareBracketAssociates/Booklet-FamixNG](https://github.com/SquareBracketAssociates/Booklet-FamixNG) (in progress)
+- [https://github.com/moostetechnology/FAST-Java](https://github.com/moostetechnology/FAST-Java)
 
-- Create a metamodel linked to another one
-- Create two metamodels then linked them with a third one
+# The presentation case
 
-# Moose
+## Let's get back to the past
 
-## Moose - Define metamodel
+In the previous presentation
+
+![meta](./img/presentation-meta.pdf)
+
+## Possible link
+
+- Which Pharo method are referenced by the presentation?
+- How represent those links?
+
+## Adding reference to a method
+
+![meta-binding](./img/presentation-meta-binding.pdf){height=250px}
+
+## What do we need
+
+1. A new entity named: 'SelectorReference'
+2. A reference to the entity 'Slide'
+3. A reference to the entity 'FamixStMethod'
+4. A relations between 'Slide' and 'SelectorReference'
+5. A relations between 'FamixStMethod' and 'SelectorReference'
+
+## How to do it?
 
 Almost the same as for one metamodel
 
@@ -33,66 +53,68 @@ Almost the same as for one metamodel
 - The remote entity are defined with `remoteEntity: withPrefix:`
 - The class side of the generator should implement `submetamodels` witch return the collection of the remote metamodels.
 
-::: {.thinkReset}
-
-# Warning
-
-Do not forget to reset all the metamodels
-
-:::
-
-# Example -- Our presentation
-
-## New Metamodel
-
-![meta-binding](./img/presentation-meta-binding.pdf){height=400px}
-
-## What do we need
-
-1. A new class named: 'SelectorReference'
-2. A relations between 'Slide' and 'SelectorReference'
-3. A relations between 'FamixStMethod' and 'SelectorReference'
-
-## Example - Define entities
-
-```st
-defineClasses
-  super defineClasses.
-  slide := self remoteEntity: #Slide withPrefix: #'Fmx'.
-  selectorReference :=
-    builder newClassNamed: #SelectorReference.
-  famixStMethod :=
-    self remoteEntity: #Method withPrefix: #'FamixSt'
-```
-
 ::: block
 
 ### Define remote entity
 
-'`#remoteEntity: anEntityName withPrefix: aPrefixName`' computes the entity 'anEntityName' of the model prefixed by 'aPrefixedName'. 
+'`#remoteEntity: anEntityName withPrefix: aPrefixName`' computes the entity 'anEntityName' of the model prefixed by 'aPrefixedName'.
 
 :::
 
-## Example - Define the binding
+# Le's do it
+
+## Define generator
 
 ```st
-defineRelations
-  super defineRelations.
-  (slide property: #outgoingReferences) -*
-    (selectorReference property: #source).
-  (selectorReference property: #candidates) *-*
-    (famixStMethod property: #incomingReferences).
+FamixMetamodelGenerator subclass: #MyGenerator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	package: 'MyPackage-Generator'
 ```
 
-## Example - Define the submodels
+## Define the submetamodels
 
 ```st
-submetamodels
+MyGenerator class>>#submetamodels
  ^ { FmxNGSlidesGenerator.
      FamixPharoSmalltalkGenerator }
 ```
 
-## Example - Reset the metamodels
+## Define entities
+
+- New entity: 'SelectorReference'
+- Reference to 'Slide'
+- Reference to 'FamixStMethod'
+
+```st
+defineClasses
+  super defineClasses.
+  selectorReference :=
+    builder newClassNamed: #SelectorReference.
+
+  slide := self remoteEntity: #Slide withPrefix: #'Fmx'.
+
+  famixStMethod :=
+    self remoteEntity: #Method withPrefix: #'FamixSt'
+```
+
+## Define the binding
+
+- Relation between 'Slide' and 'SelectorReference'
+- Relation between 'SelectorReference' and 'FamixStMethod'
+
+```st
+defineRelations
+  super defineRelations.
+  
+  (slide property: #outgoingReferences) -*
+    (selectorReference property: #source).
+
+  (selectorReference property: #candidates) *-*
+    (famixStMethod property: #incomingReferences).
+```
+
+## Reset the metamodels
 
 ```st
 FmxNGSlidesGenerator resetMetamodel.

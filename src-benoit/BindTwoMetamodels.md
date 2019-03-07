@@ -1,23 +1,25 @@
 ---
-title: "Bind two metamodels"
+title: "Bind two meta-models"
 author: Benoît Verhaeghe
 date: \today
 theme: metropolis
 header-includes:
     - \metroset{block=fill}
+    - \metroset{numbering=fraction}
+    - \metroset{sectionpage=progressbar}
+    - \metroset{progressbar=foot}
 ---
 
 ## Introduction
 
 **Objectives**
 
-- Create two linked metamodels
-- Extend a metamodel
+- Create two linked meta-models
+- Extend a meta-model
 
 **Resources**
 
 - [https://github.com/SquareBracketAssociates/Booklet-FamixNG](https://github.com/SquareBracketAssociates/Booklet-FamixNG) (in progress)
-- [https://github.com/moostetechnology/FAST-Java](https://github.com/moostetechnology/FAST-Java)
 
 # The presentation case
 
@@ -25,16 +27,20 @@ header-includes:
 
 In the previous presentation
 
-![meta](./img/presentation-meta.pdf)
+![presentation meta-model](./img/presentation-meta.pdf)
 
 ## Possible link
 
 - Which Pharo method are referenced by the presentation?
 - How represent those links?
 
+## Representation of the link
+
+![Schema](./img/presentation-example.png){height=375px}
+
 ## Adding reference to a method
 
-![meta-binding](./img/presentation-meta-binding.pdf){height=250px}
+![meta-model binding](./img/presentation-meta-binding.pdf){height=250px}
 
 ## What do we need
 
@@ -46,12 +52,12 @@ In the previous presentation
 
 ## How to do it?
 
-Almost the same as for one metamodel
+Almost the same as for one meta-model
 
 ***BUT***
 
 - The remote entity are defined with `remoteEntity: withPrefix:`
-- The class side of the generator should implement `submetamodels` witch return the collection of the remote metamodels.
+- The class side of the generator should implement `submetamodels` witch return the collection of the remote meta-models.
 
 ::: block
 
@@ -61,7 +67,7 @@ Almost the same as for one metamodel
 
 :::
 
-# Le's do it
+# Let's do it
 
 ## Define generator
 
@@ -72,7 +78,7 @@ FamixMetamodelGenerator subclass: #MyGenerator
 	package: 'MyPackage-Generator'
 ```
 
-## Define the submetamodels
+## Define the sub-meta-models
 
 ```st
 MyGenerator class>>#submetamodels
@@ -114,7 +120,7 @@ defineRelations
     (famixStMethod property: #incomingReferences).
 ```
 
-## Reset the metamodels
+## Reset the meta-models
 
 ```st
 FmxNGSlidesGenerator resetMetamodel.
@@ -125,8 +131,56 @@ FamixNGSlidesSmalltalkGenerator resetMetamodel.
 ## So
 
 1. Create new metamodel generator
-2. Define the submetamodels
+2. Define the sub-meta-models
 3. Define the remote entities
 4. Define the new entities (optional)
 5. Define the new relations
 6. Generate and resetMetamodel
+
+# Tutorial
+
+## Goal
+
+Let's bind the presentation with the Famix Smalltalk meta-model.
+
+## Process
+
+1. Download the last Moose 70 image
+2. Download the generator of the presentation meta-model
+3. Create the binding generator
+4. Create the methods of the new generator
+5. Generate the new meta-model
+
+## Download the last Moose 70 image
+
+![Pharo Launcher - Download the last Moose image](./img/lastMoose.png)
+
+## Download the generator
+
+```st
+Metacello new
+  repository:
+  'github://juliendelplanque/FamixNG-Slides/src';
+  baseline: 'FamixNGSlides';
+  load
+```
+
+::: block
+
+### Think to generate the model
+
+`FmxNGSlidesGenerator generate.`
+
+:::
+
+## Create the binding generator
+
+Now it's your turn
+
+![meta-model binding](./img/presentation-meta-binding.pdf){height=250px}
+
+# Examples of binding
+
+## List of examples
+
+- [https://github.com/moostetechnology/FAST-Java](https://github.com/moostetechnology/FAST-Java)

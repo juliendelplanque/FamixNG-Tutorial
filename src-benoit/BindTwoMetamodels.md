@@ -32,7 +32,7 @@ In the previous presentation
 ## Possible link
 
 - Which Pharo method are referenced by the presentation?
-- How represent those links?
+- How to represent those links?
 
 ## Representation of the link
 
@@ -72,10 +72,10 @@ Almost the same as for one meta-model
 ## Define generator
 
 ```st
-FamixMetamodelGenerator subclass: #MyGenerator
-	instanceVariableNames: ''
-	classVariableNames: ''
-	package: 'MyPackage-Generator'
+FamixMetamodelGenerator subclass: #FmxSlideToPharo
+  instanceVariableNames: ''
+  classVariableNames: ''
+  package: 'SlideToPharoBind-Generator'
 ```
 
 ## Define the sub-meta-models
@@ -167,7 +167,7 @@ Metacello new
 
 ::: block
 
-### Think to generate the model
+### You need first to generate the meta-model
 
 `FmxNGSlidesGenerator generate.`
 
@@ -184,3 +184,4 @@ Now it's your turn
 ## List of examples
 
 - [https://github.com/moostetechnology/FAST-Java](https://github.com/moostetechnology/FAST-Java)
+- [https://github.com/badetitou/Carrefour (Binding between Famix and FASTJava)](https://github.com/badetitou/Carrefour.git)
